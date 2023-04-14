@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>FindFineFlight - поиск авиабилетов</title>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/">FindFineFlight</a>
+    <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Заказы</a>
+    <a sec:authorize="isAuthenticated()" class="float-end" th:href="@{/logout}"><i class="bi bi-door-closed-fill"></i> Выйти</a>
+    <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/login}"><i class="bi bi-door-open-fill"></i> Войти</a>
+    <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/registration}"><i class="bi bi-envelope-at-fill"></i> Регистрация</a>
+  </header>
+  <section id="banner">
+    <div class="inner">
+      <h1>FindFineFlight</h1>
+      <p>Найти авиабилеты теперь проще простого!</p>
+    </div>
+  </section>
+  <div class="container p-5 bg-light">
+    <p class="text-center">На данном сайте вы сможете получить актуальную информацию о любых авиарейсах и авиабилетах. В случае, если что-то не работает или работает не так, как вам бы хотелось, опишите проблему в письме сюда: <b>kolya.vereshkin67@gmail.com</b></p>
+      <button type="button" class="btn btn-dark mx-auto d-block">
+        <a href="/flights/search">Искать рейсы!</a>
+      </button>
+  </div>
+  <footer id="footer">
+    <div class="inner">
+      <p>Сервис создан с <i class="bi bi-suit-heart-fill"></i> в 2023 году студентом РТУ МИРЭА из группы ИКБО-20-19 <a href="https://t.me/exhaustedaf">Верешкиным Николаем</a>.</p>
+    </div>
+  </footer>
+  <script src="/js/script.js" type="text/javascript"></script>
+  <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>
