@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
-  <title>FindFineFlight - поиск авиабилетов</title>
+  <title>FindFineFlight - вход в аккаунт</title>
 </head>
 <body>
 <header>
   <a class="logo" href="/">FindFineFlight</a>
-  <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Заказы</a>
+  <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Отслеживаемые</a>
   <a sec:authorize="isAuthenticated()" class="float-end" th:href="@{/logout}"><i class="bi bi-door-closed-fill"></i> Выйти</a>
   <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/login}"><i class="bi bi-door-open-fill"></i> Войти</a>
   <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/registration}"><i class="bi bi-envelope-at-fill"></i> Регистрация</a>
@@ -21,20 +21,26 @@
       <h1>Вход в аккаунт</h1>
     </div>
   </section>
-  <form th:action="@{/login}" method="post">
-    <div th:if="${param.error}">
-      Неправильно введено имя пользователя или пароль.
-    </div>
-    <div th:if="${param.logout}">
-      Вы вышли из аккаунта.
-    </div>
-    <label><h3>Введите имя пользователя:</h3></label>
-    <input type="text" placeholder="Введите имя пользователя" name="username" required><br>
-    <label><h3>Введите пароль: </h3></label>
-    <input type="password" placeholder="Введите пароль" name="password" required>
-    <input type="submit" value="Войти">
-    <a href="/registration">Зарегистрироваться</a>
-  </form>
+  <div class="container m-4 d-flex justify-content-center">
+    <form th:action="@{/login}" method="post">
+      <div th:if="${param.error}" id="message">
+        Неправильно введено имя пользователя или пароль.
+      </div>
+      <div th:if="${param.logout}" id="message2">
+        Вы вышли из аккаунта.
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Введите имя пользователя:</label>
+        <input type="text" class="form-control" placeholder="имя пользователя" name="username" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Введите пароль:</label>
+        <input type="password" class="form-control" placeholder="********" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-dark">Войти</button>
+      <a href="/registration">Зарегистрироваться</a>
+    </form>
+  </div>
 <footer id="footer">
   <div class="inner">
     <p>Сервис создан с <i class="bi bi-suit-heart-fill"></i> в 2023 году студентом РТУ МИРЭА из группы ИКБО-20-19 <a href="https://t.me/exhaustedaf">Верешкиным Николаем</a>.</p>

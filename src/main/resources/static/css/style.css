@@ -5,7 +5,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "BainsleyBoldItalic";
+  font-family: BainsleyBoldItalic;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -17,7 +17,7 @@ ol, ul {
 }
 
 p {
-  font-family: "BainsleyBold";
+  font-family: BainsleyBold;
   margin: 2rem 0 2rem 0;
 }
 
@@ -50,7 +50,7 @@ a {
 }
 
 a:hover {
-  color: #555555;
+  color: #C41E3A;
 }
 
 btn:hover {
@@ -82,9 +82,11 @@ th {
 th:first-child {
     text-align: left;
 }
+
 th:last-child {
     border-right: none;
 }
+
 td {
     vertical-align: middle;
     padding: 10px;
@@ -94,10 +96,12 @@ td {
     border-bottom: 2px solid #56433D;
     border-right: 2px solid #56433D;
 }
+
 td:first-child {
     border-left: 2px solid #56433D;
     border-right: none;
 }
+
 td:nth-child(2){
     text-align: left;
 }
@@ -233,12 +237,6 @@ h3 {
   clear:both;
 }
 
-input[type="text"], input[type=password] {
-	padding:10px;
-	width:93%;
-	float:left;
-}
-
 input#datepicker,input#datepicker1,input#datepicker2 {
   width: 85%;
 	margin-bottom:10px;
@@ -311,19 +309,18 @@ select#w3_country1 {
     position: absolute;
 }
 
-input[type="submit"] {
-  font-size: 14px;
+button[type="submit"] {
+    font-family: "BainsleyBold";
+  font-size: 1rem;
   color: #fff;
   background:#C41E3A;
   border: none;
   outline: none;
-  padding: 10px 20px;
-  margin-top: 50px;
     cursor:pointer;
 	transition: 0.5s all ease;
 }
 
-input[type="submit"]:hover  {
+button[type="submit"]:hover  {
     background:#212121;
 	color:#fff;
 }
@@ -356,7 +353,7 @@ input[type="submit"]:hover  {
 }
 
 @font-face {
-  font-family: "BainsleyBold";
+  font-family: BainsleyBold;
   src: url("../fonts/BainsleyBold.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
@@ -374,5 +371,19 @@ i {
 }
 
 i:hover {
-    color: #555555;
+    color: #C41E3A;
+}
+
+.form-label {
+    font-family: BainsleyBold;
+    font-size: 1rem;
+    color: #ff6969;
+    text-shadow: 0 0 2px #000000;
+}
+
+#message, #message2 {
+    font-family: BainsleyBoldItalic;
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-shadow: 0 0 2px #000000;
 }

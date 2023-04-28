@@ -20,11 +20,13 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(Users user, Model model) {
-        Users userFromDb = usersRepository.findByUsername(user.getUsername());
-        if (userFromDb != null) {
-            model.addAttribute("message", "Пользователь существует!");
+        Users usernameFromDb = usersRepository.findByUsername(user.getUsername());
+        Users emailFromDb = usersRepository.findByEmail(user.getEmail());
+        if (usernameFromDb != null || emailFromDb != null) {
+            model.addAttribute("message", "Пользователь с таким именем или почтой уже существует!");
             return "registration";
         }
+
         user.setRole("user");
         usersRepository.save(user);
         return "redirect:/login";

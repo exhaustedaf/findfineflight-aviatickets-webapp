@@ -21,14 +21,28 @@
         <h1>Регистрация</h1>
     </div>
 </section>
+<div class="container m-4 d-flex justify-content-center">
 <form th:action="@{/registration}" method="post">
-    <h3 th:text="${message}"></h3>
-    <label><h3>Введите имя пользователя:</h3></label>
-    <input type="text" placeholder="Введите имя пользователя" name="username" required><br>
-    <br><label><h3>Введите пароль: </h3></label>
-    <input type="password" placeholder="Введите пароль" name="password" required>
-    <input type="submit" value="Зарегистрироваться">
+    <h3 th:text="${message}" id="message"></h3>
+    <div class="mb-3">
+        <label class="form-label">Введите имя пользователя:</label>
+        <input type="text" class="form-control" placeholder="имя пользователя" name="username" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Введите электронную почту:</label>
+        <input type="text" class="form-control" placeholder="example@mail.ru" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Введите пароль:</label>
+        <input type="password" class="form-control" placeholder="********" name="password" id="password" required onkeyup="match();">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Повторите пароль:</label>
+        <input type="password" class="form-control" placeholder="********" id="same-password" required onkeyup="match();">
+    </div>
+    <button type="submit" class="btn btn-dark">Зарегистрироваться</button>
 </form>
+</div>
 <footer id="footer">
     <div class="inner">
         <p>Сервис создан с <i class="bi bi-suit-heart-fill"></i> в 2023 году студентом РТУ МИРЭА из группы ИКБО-20-19 <a href="https://t.me/exhaustedaf">Верешкиным Николаем</a>.</p>

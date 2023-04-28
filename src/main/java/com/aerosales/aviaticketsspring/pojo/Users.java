@@ -1,7 +1,6 @@
 package com.aerosales.aviaticketsspring.pojo;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,10 +9,13 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private Integer user_id;
+    private Integer userId;
 
     @Column(name="username")
     private String username;
+
+    @Column(name="email")
+    private String email;
 
     @Column(name="password")
     private String password;
@@ -43,8 +45,8 @@ public class Users {
         this.role = role;
     }
 
-    public Integer getUsers_id() {
-        return user_id;
+    public Integer getUsersId() {
+        return userId;
     }
 
     public String getUsername() {
@@ -69,5 +71,13 @@ public class Users {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
