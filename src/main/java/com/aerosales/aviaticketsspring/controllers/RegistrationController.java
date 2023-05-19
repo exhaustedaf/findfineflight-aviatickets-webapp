@@ -1,6 +1,6 @@
 package com.aerosales.aviaticketsspring.controllers;
 
-import com.aerosales.aviaticketsspring.pojo.Users;
+import com.aerosales.aviaticketsspring.pojo.User;
 import com.aerosales.aviaticketsspring.repos.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +19,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(Users user, Model model) {
-        Users usernameFromDb = usersRepository.findByUsername(user.getUsername());
-        Users emailFromDb = usersRepository.findByEmail(user.getEmail());
+    public String addUser(User user, Model model) {
+        User usernameFromDb = usersRepository.findByUsername(user.getUsername());
+        User emailFromDb = usersRepository.findByEmail(user.getEmail());
         if (usernameFromDb != null || emailFromDb != null) {
             model.addAttribute("message", "Пользователь с таким именем или почтой уже существует!");
             return "registration";

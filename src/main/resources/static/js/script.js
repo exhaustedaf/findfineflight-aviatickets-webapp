@@ -1,15 +1,3 @@
-$(document).ready(function () {
-  $('#horizontalTab').easyResponsiveTabs({
-    type: 'default',
-    width: 'auto',
-    fit: true
-  });
-});
-
-$(function() {
-    $( "#datepicker,#datepicker1,#datepicker2" ).datepicker();
-});
-
 function match() {
   if (document.getElementById('password').value !=
     document.getElementById('same-password').value) {
@@ -20,3 +8,15 @@ function match() {
     document.querySelector('button').removeAttribute("disabled", "");
   }
 }
+
+document.body.addEventListener("input", () => {
+  document.getElementById("search-button").disabled =
+    !document.getElementById("origin-input").value || !document.getElementById("destination-input");
+});
+
+document.getElementById("flight-type-select").addEventListener("change", () => {
+    if (document.getElementById("flight-type-select").value === "one-way")
+      document.getElementById("return-date").classList.add("d-none");
+    else
+      document.getElementById("return-date").classList.remove("d-none");
+});

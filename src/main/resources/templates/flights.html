@@ -6,118 +6,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>FindFineFlight - поиск авиабилетов</title>
+    <title>FindFineFlight | Поиск рейсов</title>
 </head>
 <body>
 <header>
     <a class="logo" href="/">FindFineFlight</a>
-    <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Заказы</a>
     <a sec:authorize="isAuthenticated()" class="float-end" th:href="@{/logout}"><i class="bi bi-door-closed-fill"></i> Выйти</a>
+    <a sec:authorize="isAuthenticated()" class="float-end" href="/tracks"><i class="bi bi-search"></i> Отслеживаемые</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/login}"><i class="bi bi-door-open-fill"></i> Войти</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/registration}"><i class="bi bi-envelope-at-fill"></i> Регистрация</a>
 </header>
 <section id="banner">
     <div class="inner">
-        <h1>Найти рейсы</h1>
+        <h1>Поиск рейсов</h1>
     </div>
 </section>
-<div class="main-agileinfo">
-    <div class="sap_tabs">
-        <div id="horizontalTab">
-            <ul class="resp-tabs-list">
-                <li class="resp-tab-item"><span>Туда-обратно</span></li>
-                <li class="resp-tab-item"><span>Только туда</span></li>
-            </ul>
-            <div class="resp-tabs-container">
-                <div class="tab-1 resp-tab-content roundtrip">
-                    <form action="/flights/search" method="post">
-                        <div class="from">
-                            <h3>Откуда</h3>
-                            <input type="text" name="dept_city" class="city1" placeholder="Введите город отправления" required="">
+<div class="container-sm">
+    <form th:action="@{/flights/search}" method="post">
+    <div class="my-2 card">
+        <div class="card-body">
+            <h5 class="card-title">Направление</h5>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="mb-2">
+                        <label id="origin-label" for="origin-input" class="form-label">Город отправления</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi-pin-map text-dark"></i> </span>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    list="origin-options"
+                                    id="origin-input"
+                                    name="origCity"
+                                    placeholder="Париж"
+                            />
+                            <datalist id="origin-options"></datalist>
                         </div>
-                        <div class="to">
-                            <h3>Куда</h3>
-                            <input type="text" name="dest_city" class="city2" placeholder="Введите город назначения" required="">
-                        </div>
-                        <div class="clear"></div>
-                        <div class="date">
-                            <div class="depart">
-                                <h3>Дата отправления</h3>
-                                <input id="datepicker" name="depart_time" type="text" required="">
-                            </div>
-                            <div class="return">
-                                <h3>Дата возвращения</h3>
-                                <input id="datepicker1" name="arrival_time" type="text" required="">
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="class">
-                            <h3>Класс</h3>
-                            <select id="w3_country" name="travel_class" onchange="change_country(this.value)" class="frm-field required">
-                                <option value="ECO">Эконом</option>
-                                <option value="BUS">Бизнес</option>
-                            </select>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="numofppl">
-                            <div class="adults">
-                                <h3>Количество пассажиров:</h3>
-                                <div class="quantity">
-                                    <div class="quantity-select">
-                                        <input type="number" name="tickets_amount" placeholder="1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <input type="submit" value="Найти рейсы">
-                    </form>
+                    </div>
                 </div>
-                <div class="tab-1 resp-tab-content oneway">
-                    <form action="/flights/search" method="post">
-                        <div class="from">
-                            <h3>Откуда</h3>
-                            <input type="text" name="dept_city" class="city1" placeholder="Введите город отправления" required="">
+                <div class="col-sm">
+                    <div class="mb-2">
+                        <label id="destination-label" for="destination-input" class="form-label">Город назначения</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi-pin-map-fill text-dark"></i> </span>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    list="destination-options"
+                                    id="destination-input"
+                                    name="destCity"
+                                    placeholder="Лондон"
+                            />
+                            <datalist id="destination-options"></datalist>
                         </div>
-                        <div class="to">
-                            <h3>Куда</h3>
-                            <input type="text" name="dest_city" class="city2" placeholder="Введите город назначения" required="">
-                        </div>
-                        <div class="clear"></div>
-                        <div class="date">
-                            <div class="depart">
-                                <h3>Дата отправления</h3>
-                                <input class="date" name="depart_time" id="datepicker2" type="text" required="">
-                                <input class="date" name="arrival_time" style="display: none;" value="">
-                            </div>
-                        </div>
-                        <div class="class">
-                            <h3>Класс</h3>
-                            <select id="w3_country1" name="travel_class" onchange="change_country(this.value)" class="frm-field required">
-                                <option value="ECO">Эконом</option>
-                                <option value="BUS">Бизнес</option>
-                            </select>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="numofppl">
-                            <div class="adults">
-                                <h3>Количество пассажиров:</h3>
-                                <div class="quantity">
-                                    <div class="quantity-select">
-                                        <input type="number" name="tickets_amount" placeholder="1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <input type="submit" value="Искать рейсы">
-                    </form>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="mb-2 col">
+                    <div class="h-100 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Даты</h5>
+                            <div class="mb-2">
+                                <label id="flight-type-label" for="flight-type-select" class="form-label">Тип полёта</label>
+                                <select
+                                        id="flight-type-select"
+                                        class="form-select"
+                                >
+                                    <option value="one-way">Только туда</option>
+                                    <option value="round-trip">Туда-обратно</option>
+                                </select>
+                            </div>
+                            <div id="departure-date" class="mb-2">
+                                <label id="departure-date-label" for="departure-date-input" class="form-label">Дата вылета</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi-calendar text-dark"></i></span>
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            id="departure-date-input"
+                                            name="departDate"
+                                    />
+                                </div>
+                            </div>
+                            <div id="return-date" class="mb-2 d-none">
+                                <label id="return-date-label" for="return-date-input" class="form-label">Дата возвращения</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi-calendar-fill text-dark"></i> </span>
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            id="return-date-input"
+                                            name="returnDate"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2 col">
+                    <div class="h-100 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Детали</h5>
+                            <div class="mb-2">
+                                <label id="travel-class-label" for="travel-class-select" class="form-label">Класс обслуживания</label>
+                                <select
+                                        class="form-select"
+                                        id="travel-class-select"
+                                        name="travelClass"
+                                >
+                                    <option value="economy">Эконом</option>
+                                    <option value="business">Бизнес</option>
+                                </select>
+                            </div>
+                            <label class="form-label">Пассажиры</label>
+                            <div class="mb-2">
+                                <div class="input-group">
+                                    <label for="adults-input" class="input-group-text">Взрослые</label>
+                                    <input
+                                            type="number"
+                                            min="0"
+                                            class="form-control"
+                                            id="adults-input"
+                                            name="adultCount"
+                                            value="1"
+                                    />
+                                </div>
+                                <span id="adults-label" class="form-text">12 лет и старше</span>
+                            </div>
+                            <div class="mb-2">
+                                <div class="input-group">
+                                    <label for="children-input" class="input-group-text">Дети</label>
+                                    <input
+                                            type="number"
+                                            min="0"
+                                            class="form-control"
+                                            id="children-input"
+                                            name="childrenCount"
+                                            value="0"
+                                    />
+                                </div>
+                                <span id="children-label" class="form-text">От 2 лет до 12</span>
+                            </div>
+                            <div class="mb-2">
+                                <div class="input-group">
+                                    <label for="infants-input" class="input-group-text">Младенцы</label>
+                                    <input
+                                            type="number"
+                                            min="0"
+                                            class="form-control"
+                                            id="infants-input"
+                                            name="infants_tickets"
+                                            value="0"
+                                    />
+                                </div>
+                                <span id="infants-label" class="form-text">До двух лет</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="search-button" class="w-100 btn btn-dark" disabled>Искать</button>
         </div>
     </div>
+    </form>
 </div>
 <footer id="footer">
     <div class="inner">

@@ -6,40 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>FindFineFlight - поиск авиабилетов</title>
+    <title>FindFineFlight | Результаты поиска</title>
 </head>
 <body>
 <header>
     <a class="logo" href="/">FindFineFlight</a>
-    <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Заказы</a>
     <a sec:authorize="isAuthenticated()" class="float-end" th:href="@{/logout}"><i class="bi bi-door-closed-fill"></i> Выйти</a>
+    <a sec:authorize="isAuthenticated()" class="float-end" href="/tracks"><i class="bi bi-search"></i> Отслеживаемые</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/login}"><i class="bi bi-door-open-fill"></i> Войти</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/registration}"><i class="bi bi-envelope-at-fill"></i> Регистрация</a>
 </header>
 <section id="banner">
     <div class="inner">
-        <h1>Найденные рейсы</h1>
+        <h1>Результаты поиска</h1>
     </div>
 </section>
-<table>
-    <tr>
-        <th>Рейс</th>
-        <th>Длительность (часов)</th>
-        <th>Время вылета</th>
-        <th>Время прилёта</th>
-        <th>Класс обслуживания</th>
-        <th>Цена</th>
-        <th></th>
-    </tr>
-    <tr th:each="fl, iterStat : ${flights}" th:if="${iterStat.index >= iterStat.size-2}">
-        <td th:text="${fl.flightName}"/>
-        <td th:text="${fl.flightDuration}"/>
-        <td th:text="${fl.deptDate}"/>
-        <td th:text="${fl.arrivalDate}"/>
-        <td th:text="${fl.travelClass}"/>
-        <td th:text="${fl.price}"/>
-        <td class="btn"><a th:href="'addOrder/' + ${fl.flightId}">Купить билет</a></td>
-    </tr>
+<table class="table table-striped table-dark text-center">
+    <thead>
+        <tr>
+            <th scope="col">Маршрут</th>
+            <th scope="col">Время в пути</th>
+            <th scope="col">Авиакомпания</th>
+            <th scope="col">Время вылета и прилёта</th>
+            <th scope="col">Аэропорт вылета</th>
+            <th scope="col">Аэропорт прилёта</th>
+            <th scope="col">Количество пересадок</th>
+            <th scope="col">Цена за билет</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="flight, id : ${flights}">
+            <th th:if="${id.odd} or ${flight.isOneWay} == true" scope="row">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.flightName}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.flightName} + '<br>' + ${flights[id.index+1].flightName}"/></span>
+            </th>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.flightDuration}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.flightDuration} + '<br>' + ${flights[id.index+1].flightDuration}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.airlineName}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.airlineName} + '<br>' + ${flights[id.index+1].airlineName}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.departTime} + ' - ' + ${flight.arrivalTime}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.departTime} + ' - ' + ${flight.arrivalTime} + '<br>' + ${flights[id.index+1].departTime} + ' - ' + ${flights[id.index+1].arrivalTime}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.departAirport}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.departAirport} + '<br>' + ${flights[id.index+1].departAirport}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.arrivalAirport}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.arrivalAirport} + '<br>' + ${flights[id.index+1].arrivalAirport}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.transferCount}"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.transferCount} + '<br>' + ${flights[id.index+1].transferCount}"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true">
+                <span th:if="${flight.isOneWay} or ${id.index}==${#lists.size(flights)}-1"><span th:text="${flight.ticketPrice} + ' $'"/></span>
+                <span th:unless="${flight.isOneWay}"><span th:utext="${flight.ticketPrice} + ' $<br>' + ${flights[id.index+1].ticketPrice} + ' $'"/></span>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true" class="btn btn-outline-dark btn-sm">
+                <a th:href="'add-flight/' + ${id.index}">Отслеживать</a>
+            </td>
+            <td th:if="${id.odd} or ${flight.isOneWay} == true" class="btn btn-outline-dark btn-sm">
+                <a href="https://www.aviasales.ru/search/">Купить билет</a>
+            </td>
+        </tr>
+    </tbody>
 </table>
 <footer id="footer">
     <div class="inner">

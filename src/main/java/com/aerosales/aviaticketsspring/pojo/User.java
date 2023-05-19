@@ -1,11 +1,11 @@
 package com.aerosales.aviaticketsspring.pojo;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
@@ -27,22 +27,23 @@ public class Users {
     @JoinTable(name="user_flight_list",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="flight_id"))
-    private Set<FlightDetails> flightDetailsList;
+    private List<Flight> flightsList;
 
-    public Set<FlightDetails> getFlightDetailsList() {
-        return flightDetailsList;
+    public List<Flight> getFlightsList() {
+        return flightsList;
     }
 
-    public void setFlightDetailsList(Set<FlightDetails> flightDetailsList) {
-        this.flightDetailsList = flightDetailsList;
+    public void setFlightsList(List<Flight> flightList) {
+        this.flightsList = flightList;
     }
 
-    public Users() { }
+    public User() { }
 
-    public Users(String username, String password, String role) {
+    public User(String username, String password, String role, List<Flight> flightList) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.flightsList = flightList;
     }
 
     public Integer getUsersId() {

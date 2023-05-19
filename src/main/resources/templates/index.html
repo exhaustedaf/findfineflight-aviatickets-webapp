@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
-  <title>FindFineFlight - поиск авиабилетов</title>
+  <title>FindFineFlight | Главная</title>
 </head>
 <body>
   <header>
     <a class="logo" href="/">FindFineFlight</a>
-    <a sec:authorize="isAuthenticated()" class="float-end" href="/orders"><i class="bi bi-search"></i> Отслеживаемые</a>
     <a sec:authorize="isAuthenticated()" class="float-end" th:href="@{/logout}"><i class="bi bi-door-closed-fill"></i> Выйти</a>
+    <a sec:authorize="isAuthenticated()" class="float-end" href="/tracks"><i class="bi bi-search"></i> Отслеживаемые</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/login}"><i class="bi bi-door-open-fill"></i> Войти</a>
     <a sec:authorize="isAnonymous()" class="float-end" th:href="@{/registration}"><i class="bi bi-envelope-at-fill"></i> Регистрация</a>
   </header>
